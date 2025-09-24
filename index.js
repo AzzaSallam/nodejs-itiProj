@@ -17,6 +17,13 @@ const PORT = process.env.PORT || 8000;
 //Database connection
 connectDB()
 
+
+//Logs every request that hits server in console.
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+  console.log(`Mode: ${process.env.NODE_ENV}`);
+}
+
 //MiddleWare
 app.use(cors()) //in production put frontend domain in origin atrr , but by default '*'
 app.use(express.json());
@@ -34,11 +41,6 @@ app.use('/users/cart' , cartRoute) ;
 app.use('/users/orders' , ordersRoute) ;
 
 
-//Logs every request that hits server in console.
-if(process.env.MODE_ENV === 'development'){
-  app.use(morgan('dev'));
-  console.log(`Mode: ${process.env.MODE_ENV}`);
-}
 
 
 //not found routes
